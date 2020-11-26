@@ -1,6 +1,5 @@
 import qualified Data.Char as Char
 import qualified Data.List as List
-import qualified Data.Ord  as Ord
 import qualified System.IO as IO
 
 main :: IO ()
@@ -32,6 +31,6 @@ willReact c1 c2 = lowerUpper || upperLower
 
 -- Find the smallest length of a polymer with one unit type removed.
 part2 :: String -> Int
-part2 polymer = List.minimum
-                . map (\c -> part1 . filter (\c' -> c /= Char.toLower c') $ polymer)
-                $ ['a'..'z']
+part2 polymer =
+    minimum . map (\c -> part1 . filter (anyCaseNotEqual c) $ polymer) $ ['a'..'z']
+    where anyCaseNotEqual char toCompare = char /= Char.toLower toCompare

@@ -14,7 +14,7 @@ main :: IO ()
 main = do
     contents <- IO.readFile "../inputs/day14.txt"
     let intInput = read contents
-        seqInput = Seq.fromList $ List.map Char.digitToInt $ stripNewline contents
+        seqInput = Seq.fromList . List.map Char.digitToInt . stripNewline $ contents
 
     putStrLn $ "Part 1: " ++ part1 intInput
     putStrLn $ "Part 2: " ++ show (part2 seqInput)
@@ -28,7 +28,7 @@ initialRecipes = Seq.fromList [3, 7]
 
 -- Get the first 10 recipes after `input` recipes as a string.
 part1 :: NumRecipes -> String
-part1 numRecipes = renderRecipes $ Seq.take 10 $ Seq.drop numRecipes recipes
+part1 numRecipes = renderRecipes . Seq.take 10 . Seq.drop numRecipes $ recipes
     where recipes = makeNumRecipes initialRecipes (numRecipes + 10) (0, 1)
 
 -- Convert a sequence of ints int a string of digits.
@@ -74,5 +74,5 @@ lookForSubseq recipes subseq
     | subseq == secondRightmost = Just (numToDrop - 1)
     | otherwise                 = Nothing
     where rightmost       = Seq.drop numToDrop recipes
-          secondRightmost = Seq.take (Seq.length subseq) $ Seq.drop (numToDrop - 1) recipes
+          secondRightmost = Seq.take (Seq.length subseq) . Seq.drop (numToDrop - 1) $ recipes
           numToDrop       = Seq.length recipes - Seq.length subseq

@@ -10,6 +10,8 @@ type Words     = [String]
 type CharIndex = (Int, Char)
 type SeenMap   = Map CharIndex [String]
 
+efijaoj
+
 main :: IO ()
 main = do
     contents <- IO.readFile "../inputs/day02.txt"
